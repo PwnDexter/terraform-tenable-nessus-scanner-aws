@@ -1,5 +1,10 @@
 ## Provision a Nessus Scanner ##
 
+variable "profile_id" {
+  description = "The name of your local aws credential profile to use when interacting with awscli"
+  type        = string
+}
+
 variable "scanner_name" {
   description = "The name of your Nessus scanner as it will appear in the Tenable.io web UI. Defaults to the AWS instance name."
   type        = string
@@ -30,12 +35,11 @@ variable "instance_type" {
 variable "instance_name" {
   description = "The name of the instance as it appears in the aws instance list. Overrides any name passed in instance_tags."
   type        = string
-  default     = null
 }
 
 variable "instance_tags" {
   description = "A map of tags to apply to the instance"
-  type        = map
+  type        = map(any)
   default     = {}
 }
 

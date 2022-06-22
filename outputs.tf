@@ -1,3 +1,4 @@
 output "security_group_id" {
-  value = aws_security_group.nessus-security-group.id
+  description = "ID of the newly created security group"
+  value       = aws_security_group.nessus-security-group.id
 }
