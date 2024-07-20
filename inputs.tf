@@ -49,6 +49,15 @@ variable "use_eip" {
   default     = true
 }
 
+variable "extra_filters" {
+  description = "Additional filters for the AMI search"
+  type = list(object({
+    name   = string
+    values = list(string)
+  }))
+  default = []
+}
+
 ## Process some inputs into a map of tags, then use those instead
 
 locals {

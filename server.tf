@@ -6,6 +6,7 @@ locals {
     name     = coalesce(var.scanner_name, local.instance_tags["Name"])
     key      = var.tenable_linking_key
     iam_role = aws_iam_role.nessus-server-role.name
+    aws_scanner = true
   }
 }
 
@@ -16,7 +17,15 @@ data "aws_ami" "nessus-image" {
 
   filter {
     name   = "product-code"
-    values = ["4m4uvwtrl5t872c56wb131ttw"]
+    values = ["8fn69npzmbzcs4blc4583jd0y"]
+  }
+
+  dynamic "filter" {
+    for_each = var.extra_filters
+    content {
+      name   = filter.value.name
+      values = filter.value.values
+    }
   }
 }
 

@@ -1,6 +1,6 @@
 # Terraform Module for Tenable.io's Nessus Scanner on AWS
 
-This module will set up the latest release of [Tenable.io's preauthorized Nessus scanner from the AWS marketplace](https://aws.amazon.com/marketplace/pp/B01LXCD58S?qid=1532453752682). It will also update your machine if you run it again after the release of a newer version of the AMI.
+This module will set up the latest release of [Tenable.io's Nessus (BYOL) scanner from the AWS marketplace](https://aws.amazon.com/marketplace/pp/prodview-iiuvzhn5kp7oo). It will also update your machine if you run it again after the release of a newer version of the AMI.
 
 Terraform modules don't always have the options you need out of the box, and I threw this together pretty quickly for use in my environment. However, as long as you can specify a VPC and a subnet, you should be able to use it.
 
@@ -24,6 +24,7 @@ Add this module to your terraform project's source code and provide the followin
   - (Optional) Instance name, defaults to nessus-scanner
   - (Optional) Scanner name (a friendly name to show in the Tenable.io UI), defaults to Instance name.
   - (Optional) A map of tags to apply to the instance
+  - (Optional) Extra AMI serach filters, defaults to `[]`
 
 ### Outputs
 
@@ -46,5 +47,12 @@ module "nessus_scanner" {
     Role        = "security-scanner"
     Projects    = "tenable"
   }
+
+  extra_filters = [
+    {
+      name = "image-id"
+      values = ["ami-0e2e293e46c009d6f"] # Use a specific AMI instead of the latest available image
+    }
+  ]
 }
 ```
